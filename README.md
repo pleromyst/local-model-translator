@@ -12,7 +12,7 @@
 
 ![主窗口](docs/images/main-window.png)
 
-![翻译小窗口](docs/images/acrylic-preview.png)
+![翻译小窗口](docs/images/translation-example.png)
 
 翻译小窗口使用圆角半透明背景。
 

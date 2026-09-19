@@ -12,7 +12,7 @@ The app is called **LocalLens**. It runs on Windows, translates with a local AI 
 
 ![Main window](docs/images/main-window.png)
 
-![Translation popup](docs/images/acrylic-preview.png)
+![Translation popup](docs/images/translation-example.png)
 
 The popup has rounded corners and a translucent background.
 
