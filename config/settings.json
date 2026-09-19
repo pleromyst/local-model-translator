@@ -1,0 +1,12 @@
+{
+  "ollama_url": "http://127.0.0.1:11434",
+  "model": "deepseek-r1:8b",
+  "target_language": "Simplified Chinese",
+  "translation_hotkey": "Alt+T",
+  "ocr_hotkey": "Alt+Q",
+  "max_chars_per_chunk": 3000,
+  "ollama_keep_alive": "10m",
+  "release_model_after_translation": true,
+  "start_with_windows": true,
+  "debug": false
+}

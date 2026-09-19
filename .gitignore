@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+
+# Local runtime artifacts
+logs/*.log
+logs/debug_capture.png
+config/settings.json.corrupt-*
+system-policy-backups/
+
+# Packaging
+build/
+dist/
+dist-rounded/
+
+# Editors and operating system
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
