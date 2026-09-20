@@ -18,6 +18,8 @@ The popup has rounded corners and a translucent background.
 
 ## Get started
 
+**[Download the Windows app](https://github.com/pleromyst/local-model-translator/releases/latest)**: under Assets, download `LocalLens-Windows-x64.zip`. Right-click it, choose “Extract All,” open the extracted `LocalLens` folder, and run `LocalLens.exe`. You don't need the Source code downloads.
+
 1. Use 64-bit Windows 10 / 11. Install and start [Ollama](https://ollama.com/), then download a model you want to use.
 2. For a packaged build, extract the whole folder and run `LocalLens.exe`. No Python needed. For GitHub's source ZIP, follow the source instructions below.
 3. Choose your model in Settings and save. Run `ollama list` to check model names; replace the default `deepseek-r1:8b` with yours. The Ollama address can usually stay at `http://127.0.0.1:11434`.
