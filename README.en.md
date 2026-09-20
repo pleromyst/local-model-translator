@@ -4,7 +4,7 @@
 
 This is an experimental project. It can't compete with WeChat's built-in screenshot translation, and using a local model turned out to be more flashy than practical. Its only real strengths are fully offline use and translating somewhat longer text—and both depend on your local model. It clearly didn't meet my expectations. It's just a little toy, but you're welcome to give it a try.
 
-This is the final version. I don't currently plan to keep improving it.
+This piece of work's improvement plan is determined by one's own will.
 
 The app is called **LocalLens**. It runs on Windows, translates with a local AI model through Ollama, and reads screenshot text with RapidOCR. Download your model first, then use it offline.
 
