@@ -48,26 +48,93 @@
 - 默认不上传正文或截图，不保存翻译历史。模型需要提前下载。
 - 设置在 `config/settings.json`；日志在 `logs/locallens.log`，自动滚动，不记录原文和译文。开启 Debug 才会保存调试截图。
 
-## 源码运行与打包
+## 安装与运行
 
-在项目目录打开 PowerShell：
+### 1. 准备本地模型
+
+先安装并打开 [Ollama](https://ollama.com/download/windows)。
+
+打开 PowerShell，输入：
+
+```powershell
+ollama list
+```
+
+这里会列出你已经安装的模型。如果没有模型，可以先下载一个，例如：
+
+```powershell
+ollama pull deepseek-r1:8b
+```
+
+这个命令需要联网，也会占用一定的磁盘空间。模型不一定要用这个，按自己的电脑配置选择即可。下载完成后，翻译时可以离线使用。
+
+### 2. 运行翻译器
+
+**如果你下载的是打包好的程序：**
+
+解压整个文件夹，打开里面的 `LocalLens.exe` 即可，不用安装 Python。不要只复制 EXE，旁边的文件也要保留。
+
+**如果你下载的是 GitHub 源码：**
+
+GitHub 的 **Code → Download ZIP** 下载的是源码，里面没有打包好的 EXE，需要按下面的步骤运行。
+
+1. 安装 64 位 Python，安装时勾选 **Add python.exe to PATH**。
+2. 在仓库页面点击 **Code → Download ZIP**，下载后解压。
+3. 打开解压后的文件夹，找到 `main.py`、`requirements.txt` 和 `build.ps1` 所在的位置。
+4. 点击文件资源管理器顶部的地址栏，输入 `powershell`，按回车。
+5. 在打开的窗口里依次运行下面三条命令，每条执行完再输入下一条：
 
 ```powershell
 python -m venv .venv
+```
+
+```powershell
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
+```
+
+```powershell
 .\.venv\Scripts\python.exe main.py
 ```
 
-测试用 `.\.venv\Scripts\python.exe -m pytest -q`。需要固定依赖版本时，用 `requirements-lock.txt` 替代 `requirements.txt`。
+第一次安装依赖需要联网，可能要等一会儿。如果某一步报错，先处理报错，不要继续往下执行。
 
-打包：
+以后再次运行，只需要在同一个文件夹打开 PowerShell，执行：
+
+```powershell
+.\.venv\Scripts\python.exe main.py
+```
+
+### 3. 选择模型
+
+运行翻译器后，打开 **Settings**：
+
+- Ollama 地址一般保持 `http://127.0.0.1:11434`。
+- 选择你已经安装的模型，名称可以用 `ollama list` 查看。
+- 点击 **Save** 保存，使用期间保持 Ollama 运行。
+
+然后就可以用了：
+
+- 长按左键并滑动选中文本，按 `Alt+T` 翻译。
+- 按 `Alt+Q` 框选截图，按 `Esc` 取消。
+- 点击小窗口里的 `Copy` 复制译文。
+
+## 可选：自己打包成 EXE
+
+只想使用程序的话，可以跳过这一节。
+
+先完成上面的源码运行步骤。确认程序能正常运行后，关闭程序，在同一个 PowerShell 窗口里依次执行：
 
 ```powershell
 .\.venv\Scripts\python.exe -m pip install -r requirements-build.txt
+```
+
+```powershell
 .\build.ps1
 ```
 
-分享打包版时保留完整的 `dist\LocalLens` 文件夹，不要只复制 EXE。
+打包完成后，打开项目中的 `dist` 文件夹，再进入 `LocalLens`，里面的 `LocalLens.exe` 就是程序。
+
+移动或分享时，请保留整个 `LocalLens` 文件夹，不要只拿走 EXE。对方仍需单独安装 Ollama 和本地模型。
 
 ## 许可证
 
