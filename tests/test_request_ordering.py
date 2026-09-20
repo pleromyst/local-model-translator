@@ -138,18 +138,25 @@ def test_stale_failure_is_ignored_after_newer_success(application):
     dispose_controller(application, controller)
 
 
-def test_mixed_chinese_english_bypasses_client_creation(application):
-    created_clients = []
+def test_mixed_chinese_english_runs_through_client(application):
+    class MixedClient:
+        def __init__(self):
+            self.calls = []
+
+        def translate(self, text):
+            self.calls.append(text)
+            return "Please open Windows settings"
+
+        def close(self):
+            pass
+
+    client = MixedClient()
     controller = TranslationController(
         DEFAULT_SETTINGS,
-        client_factory=lambda settings: created_clients.append(settings),
+        client_factory=lambda settings: client,
     )
-    bypassed = []
     succeeded = []
     finished = []
-    controller.translation_bypassed.connect(
-        lambda request_id, text: bypassed.append((request_id, text))
-    )
     controller.translation_succeeded.connect(
         lambda request_id, text: succeeded.append((request_id, text))
     )
@@ -157,11 +164,11 @@ def test_mixed_chinese_english_bypasses_client_creation(application):
 
     source_text = "请打开 Windows settings"
     request_id = controller.start_translation(source_text)
+    wait_until(application, lambda: request_id in finished)
 
-    assert bypassed == [(request_id, source_text)]
-    assert succeeded == []
+    assert client.calls == [source_text]
+    assert succeeded == [(request_id, "Please open Windows settings")]
     assert finished == [request_id]
-    assert created_clients == []
     assert not controller.has_running_requests
     dispose_controller(application, controller)
 

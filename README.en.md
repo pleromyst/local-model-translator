@@ -29,7 +29,7 @@ The popup has rounded corners and a translucent background.
 - **Selected text:** Hold the left mouse button and drag to select text, then press `Alt+T`.
 - **Screenshot:** Press `Alt+Q` and draw a box around the text. Press `Esc` to cancel.
 - **Popup:** Drag it around or click `Copy` to copy the translation.
-- **Languages:** English becomes Chinese, and Chinese becomes English. Mixed Chinese and English stays unchanged without calling the model.
+- **Languages:** English becomes Chinese, and Chinese becomes English. For mixed text, existing English is preserved while the Chinese is translated into English.
 - **Layout:** Screenshot text is joined into one line, keeping recognized punctuation. Long text is translated in parts and put back together in order.
 
 Each translation is a fresh request, and only the translation is shown. Change shortcuts and models in Settings. The model is unloaded after each translation by default, so loading it next time may take a little longer.

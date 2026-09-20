@@ -106,8 +106,6 @@ class OllamaClient:
             text,
             fallback=self._settings.target_language,
         )
-        if target_language is None:
-            return text
         source_text = text.strip("\r\n")
 
         messages = [

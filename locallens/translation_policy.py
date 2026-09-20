@@ -36,14 +36,14 @@ def translation_target_for_source(
     text: str,
     *,
     fallback: str,
-) -> str | None:
-    """Choose a deterministic direction, or ``None`` for mixed-text bypass."""
+) -> str:
+    """Choose a deterministic translation direction from the source text."""
 
     if not isinstance(fallback, str):
         raise TypeError("fallback must be a string")
     has_chinese, has_english = _language_flags(text)
     if has_chinese and has_english:
-        return None
+        return "English"
     if has_chinese:
         return "English"
     if has_english:

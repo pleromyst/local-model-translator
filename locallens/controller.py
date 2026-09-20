@@ -12,9 +12,6 @@ from PySide6.QtCore import QObject, QThread, Signal, Slot
 from locallens.config import Settings
 from locallens.services.ollama_client import OllamaClient, OllamaError
 from locallens.text_chunking import iter_translatable_parts
-from locallens.translation_policy import is_mixed_chinese_english
-
-
 logger = logging.getLogger("locallens.translation")
 
 
@@ -92,7 +89,6 @@ class TranslationController(QObject):
     """Run independent requests and publish results from only the newest one."""
 
     translation_succeeded = Signal(int, str)
-    translation_bypassed = Signal(int, str)
     translation_failed = Signal(int, str)
     request_finished = Signal(int)
 
@@ -141,17 +137,6 @@ class TranslationController(QObject):
         self._active_request_id = request_id
         self._request_started_at[request_id] = time.monotonic()
         logger.info("translation_started request_id=%d thinking=true", request_id)
-
-        if is_mixed_chinese_english(source_text):
-            logger.info(
-                "translation_bypassed request_id=%d reason=mixed_language",
-                request_id,
-            )
-            self.translation_bypassed.emit(request_id, source_text)
-            self._log_request_completed(request_id, "bypassed")
-            self._request_started_at.pop(request_id, None)
-            self.request_finished.emit(request_id)
-            return request_id
 
         thread = QThread(self)
         worker = TranslationWorker(

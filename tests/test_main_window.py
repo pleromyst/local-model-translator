@@ -296,34 +296,34 @@ def test_new_selected_text_invalidates_pending_ocr(application):
     window.close()
 
 
-def test_mixed_selected_text_returns_original_without_deepseek(application):
-    created_clients = []
+def test_mixed_selected_text_is_translated_to_english(application):
+    client = FakeClient(result="Please open Windows settings")
     window = MainWindow(
         DEFAULT_SETTINGS,
-        client_factory=lambda settings: created_clients.append(settings),
+        client_factory=lambda settings: client,
     )
     source_text = "请打开 Windows settings"
 
     window._on_selected_text(source_text, True)
-    application.processEvents()
+    wait_until(application, lambda: window.translate_button.isEnabled())
 
-    assert created_clients == []
+    assert client.calls == [source_text]
     assert window.source_edit.toPlainText() == source_text
-    assert window.result_edit.toPlainText() == source_text
-    assert window.popup.result_text == source_text
-    assert "without using DeepSeek" in window.status_label.text()
+    assert window.result_edit.toPlainText() == "Please open Windows settings"
+    assert window.popup.result_text == "Please open Windows settings"
+    assert window.status_label.text() == "Translation complete."
     assert window.translate_button.isEnabled()
     window.close()
 
 
-def test_mixed_ocr_text_returns_original_without_deepseek(application):
+def test_mixed_ocr_text_is_translated_to_english(application):
     image = QImage(80, 40, QImage.Format.Format_ARGB32)
     image.fill("red")
-    created_clients = []
+    client = FakeClient(result="This feature supports English")
     ocr = FakeOCRController()
     window = MainWindow(
         DEFAULT_SETTINGS,
-        client_factory=lambda settings: created_clients.append(settings),
+        client_factory=lambda settings: client,
         screenshot_service=FakeScreenshotService(),
         ocr_controller_factory=lambda: ocr,
     )
@@ -331,13 +331,13 @@ def test_mixed_ocr_text_returns_original_without_deepseek(application):
 
     window._on_area_captured(image)
     ocr.text_ready.emit(1, source_text)
-    application.processEvents()
+    wait_until(application, lambda: window.translate_button.isEnabled())
 
-    assert created_clients == []
+    assert client.calls == [source_text]
     assert window.source_edit.toPlainText() == source_text
-    assert window.result_edit.toPlainText() == source_text
-    assert window.popup.result_text == source_text
-    assert "without using DeepSeek" in window.status_label.text()
+    assert window.result_edit.toPlainText() == "This feature supports English"
+    assert window.popup.result_text == "This feature supports English"
+    assert window.status_label.text() == "Translation complete."
     assert window.translate_button.isEnabled()
     window.close()
 

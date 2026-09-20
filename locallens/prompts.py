@@ -26,7 +26,10 @@ def build_translation_system_prompt(target_language: str) -> str:
 
     target = _validated_target_language(target_language)
     if target.casefold() == "english":
-        direction = "Translate the source text into natural English."
+        direction = """Translate the source text into natural English.
+If Chinese and English appear together, translate the Chinese into English while
+preserving the existing English words, proper nouns, product names, commands,
+and identifiers verbatim."""
     else:
         direction = f"Translate the source text into {target}."
 

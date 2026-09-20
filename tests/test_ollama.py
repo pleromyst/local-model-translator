@@ -163,15 +163,20 @@ def test_chinese_source_with_trailing_blank_line_still_targets_english():
     assert "<SOURCE_TEXT>\n这是一个测试。\n</SOURCE_TEXT>" in messages[1]["content"]
 
 
-def test_direct_mixed_source_returns_original_without_http_request():
-    session = FakeSession()
+def test_mixed_source_translates_chinese_to_english_and_preserves_english_terms():
+    session = FakeSession(
+        FakeResponse({"message": {"content": "Please open Windows settings."}})
+    )
     client = OllamaClient(DEFAULT_SETTINGS, session=session)
     source = "请打开 Windows settings"
 
     result = client.translate(source)
 
-    assert result == source
-    assert session.calls == []
+    assert result == "Please open Windows settings."
+    messages = session.calls[0]["json"]["messages"]
+    assert "Translate the source text into natural English." in messages[0]["content"]
+    assert "preserving the existing English words" in messages[0]["content"]
+    assert f"<SOURCE_TEXT>\n{source}\n</SOURCE_TEXT>" in messages[1]["content"]
 
 
 def test_target_language_rejects_prompt_control_characters():

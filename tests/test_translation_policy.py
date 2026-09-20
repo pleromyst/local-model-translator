@@ -35,7 +35,7 @@ def test_mixed_language_detection_rejects_non_string_values():
         ("This is a test.\n\n", "Simplified Chinese"),
         ("这是一个测试。", "English"),
         ("这是一个测试。\n\n", "English"),
-        ("Windows 系统", None),
+        ("Windows 系统", "English"),
         ("12345", "Configured Target"),
     ],
 )

@@ -77,7 +77,6 @@ class MainWindow(QMainWindow):
             settings, client_factory=client_factory, parent=self
         )
         self._controller.translation_succeeded.connect(self._show_translation)
-        self._controller.translation_bypassed.connect(self._show_bypassed_source)
         self._controller.translation_failed.connect(self._show_error)
         self._controller.request_finished.connect(self._on_request_finished)
         self._hotkey_manager: HotkeyManager | None = None
@@ -519,17 +518,6 @@ class MainWindow(QMainWindow):
         self._active_clipboard_restore_skipped = False
         if self._translation_output == "popup" and self.popup.isVisible():
             self.popup.show_translation(translation)
-
-    @Slot(int, str)
-    def _show_bypassed_source(self, request_id: int, source_text: str) -> None:
-        self.result_edit.setPlainText(source_text)
-        self.status_label.setText(
-            "Mixed Chinese and English detected. Original text returned "
-            "without using DeepSeek."
-        )
-        self._active_clipboard_restore_skipped = False
-        if self._translation_output == "popup" and self.popup.isVisible():
-            self.popup.show_translation(source_text)
 
     @Slot(int, str)
     def _show_error(self, request_id: int, message: str) -> None:
