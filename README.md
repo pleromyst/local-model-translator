@@ -18,7 +18,7 @@
 
 ## 开始使用
 
-**[下载 Windows 程序包](https://github.com/pleromyst/local-model-translator/releases/latest)**：在 Assets 中下载 `LocalLens-Windows-x64.zip`，右键选择“全部提取”，打开解压后的 `LocalLens` 文件夹，运行 `LocalLens.exe`。不需要下载下面的 Source code。
+**[下载 Windows 程序包](https://github.com/pleromyst/local-model-translator/releases/latest)**：在 Assets 中下载 `LocalLens-Windows-x64.zip`，打开解压后的 `LocalLens` 文件夹，运行 `LocalLens.exe`。不需要下载下面的 Source code。
 
 1. 准备 64 位 Windows 10 / 11，安装并启动 [Ollama](https://ollama.com/)，下载你想用的模型。
 2. 打包版解压整个文件夹后，运行 `LocalLens.exe`，不用安装 Python。GitHub 源码 ZIP 请按下方步骤运行。
