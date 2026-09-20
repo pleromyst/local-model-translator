@@ -20,7 +20,7 @@
 
 1. 准备 64 位 Windows 10 / 11，安装并启动 [Ollama](https://ollama.com/)，下载你想用的模型。
 2. 打包版解压整个文件夹后，运行 `LocalLens.exe`，不用安装 Python。GitHub 源码 ZIP 请按下方步骤运行。
-3. 在 Settings 里选好模型并保存。运行 `ollama list` 可查看模型名称；默认的 `deepseek-r1:8b` 可以换成自己的模型。Ollama 地址通常保持 `http://127.0.0.1:11434` 即可。
+3. 在 Settings 里选好模型并保存。运行 `ollama list` 可查看模型名称；默认的 `deepseek-r1:8b` 可以换成自己的模型（请一定保证自己的电脑部署了本地模型！）。Ollama 地址通常保持 `http://127.0.0.1:11434` 即可。
 
 ## 翻译
 
